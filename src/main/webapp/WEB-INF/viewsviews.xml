@@ -1,0 +1,25 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition name="layout" template="/WEB-INF/views/main_layout.jsp"/>
+
+    <definition name="404page" extends="layout">
+        <put-attribute name="content" value="/WEB-INF/views/404page.jsp" />
+    </definition>
+
+    <definition name="users/index" extends="layout">
+        <put-attribute name="content" value="/WEB-INF/views/users/index.jsp" />
+    </definition>
+    <definition name="users/show" extends="layout">
+        <put-attribute name="content" value="/WEB-INF/views/users/show.jsp" />
+    </definition>
+    <definition name="users/new" extends="layout">
+        <put-attribute name="content" value="/WEB-INF/views/users/new.jsp" />
+    </definition>
+    <definition name="users/edit" extends="layout">
+        <put-attribute name="content" value="/WEB-INF/views/users/edit.jsp" />
+    </definition>
+    <definition name="userForm" template="/WEB-INF/views/users/_form.jsp"/>
+
+</tiles-definitions>
