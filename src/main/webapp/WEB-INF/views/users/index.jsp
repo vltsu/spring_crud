@@ -18,4 +18,4 @@
 </c:if>
 
 
-<a href="<c:url value="/users/new"/>">Create new user</a>
+<a href="<c:url context="/" value="/users/new"/>">Create new user</a>

@@ -1,13 +1,12 @@
 package jettyapp.mvc.model;
 
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+
+import javax.validation.constraints.Size;
 
 public class User {
+
     private Long id;
+    @Size(min=3, max=20, message="Username must be between 3 and 20 characters long.")
     private String name;
     private String email;
     private String image;
