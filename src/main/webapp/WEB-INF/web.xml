@@ -3,6 +3,17 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
+    <!-- Adding support for two configs -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/mvc-dispatcher-servlet.xml, /WEB-INF/mvc-dispatcher-security.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
 	<display-name>Spring MVC Application</display-name>
 
     <servlet>
@@ -10,6 +21,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
 	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
@@ -29,6 +41,18 @@
         <filter-name>MultipartFilter</filter-name>
         <servlet-name>mvc-dispatcher</servlet-name>
     </filter-mapping>
+
+    <!-- Spring security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- PUT, DELETE form simulation support -->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
@@ -37,5 +61,10 @@
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <servlet-name>mvc-dispatcher</servlet-name>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
 </web-app>
