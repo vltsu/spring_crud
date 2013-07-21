@@ -58,6 +58,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-dao:2.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:1.9.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-jsp:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-servlet:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tiles:tiles-core:2.2.1" level="project" />

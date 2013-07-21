@@ -14,7 +14,7 @@ public class UserService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_SELECT_ALL_USERS = "select id, name, email, image from users";
+    private static final String SQL_SELECT_ALL_USERS = "select name, email, image from users";
     public List<User> getAllUsers() {
         return jdbcTemplate.query(
                 SQL_SELECT_ALL_USERS,
@@ -22,12 +22,12 @@ public class UserService {
         );
     }
 
-    private static final String SQL_SELECT_USER_BY_ID = "select id, name, email, image from users where id = ?";
-    public User getUserById(long id) {
+    private static final String SQL_SELECT_USER_BY_EMAIL = "select name, email, image from users where email = ?";
+    public User getUserByEmail(String email) {
         return jdbcTemplate.queryForObject(
-                SQL_SELECT_USER_BY_ID,
+                SQL_SELECT_USER_BY_EMAIL,
                 new UserMapper(),
-                id
+                email
         );
     }
 
@@ -37,22 +37,21 @@ public class UserService {
                 new Object[] { user.getName(), user.getEmail(), user.getImage() });
     }
 
-    private static final String SQL_UPDATE_USER = "update users set name = ?, email = ?, image =? where id = ?";
-    public void updateUser(User user, Long id) {
+    private static final String SQL_UPDATE_USER = "update users set name = ?, email = ?, image =? where email = ?";
+    public void updateUser(User user, String email) {
         jdbcTemplate.update(SQL_UPDATE_USER,
-                new Object[] { user.getName(), user.getEmail(), user.getImage(), id });
+                new Object[] { user.getName(), user.getEmail(), user.getImage(), email });
     }
 
-    private static final String SQL_DELETE_USER = "delete from users where id = ?";
-    public void deleteUser(Long id) {
+    private static final String SQL_DELETE_USER = "delete from users where email = ?";
+    public void deleteUser(String email) {
         jdbcTemplate.update(SQL_DELETE_USER,
-                new Object[] { id });
+                new Object[] { email });
     }
 
     private static final class UserMapper implements ParameterizedRowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
-            user.setId(rs.getLong("Id"));
             user.setName(rs.getString("Name"));
             user.setEmail(rs.getString("Email"));
             user.setImage(rs.getString("Image"));

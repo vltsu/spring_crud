@@ -17,7 +17,8 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 
 public class UserController {
-    @Autowired UserService userService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(method=RequestMethod.GET)
     public String index(Model model) {
@@ -26,13 +27,11 @@ public class UserController {
         return "users/index";
     }
 
-
-
-    @RequestMapping(value="/{userId}")
-    public String show(@PathVariable String userId, Model model) {
+    @RequestMapping(value="/{email}")
+    public String show(@PathVariable String email, Model model) {
         User user;
         try {
-            user = userService.getUserById(Long.parseLong(userId));
+            user = userService.getUserByEmail(email);
         } catch (Exception e) {
             return "404page";
         }
@@ -55,11 +54,11 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @RequestMapping(value="/edit/{userId}", method=RequestMethod.GET)
-    public String edit(@PathVariable String userId, Model model) {
+    @RequestMapping(value="/edit/{email}", method=RequestMethod.GET)
+    public String edit(@PathVariable String email, Model model) {
         User user;
         try {
-            user = userService.getUserById(Long.parseLong(userId));
+            user = userService.getUserByEmail(email);
         } catch (Exception e) {
             return "404page";
         }
@@ -67,26 +66,26 @@ public class UserController {
         return "users/edit";
     }
 
-    @RequestMapping(value="/edit/{userId}", method=RequestMethod.PUT)
-    public String update(@PathVariable String userId, @ModelAttribute("user") User user, BindingResult result) {
+    @RequestMapping(value="/edit/{email}", method=RequestMethod.PUT)
+    public String update(@PathVariable String email, @ModelAttribute("user") User user, BindingResult result) {
         try {
-            userService.getUserById(Long.parseLong(userId));
+            userService.getUserByEmail(email);
         } catch (Exception e) {
             return "404page";
         }
 
         if(result.hasErrors()){
-            return "users/edit/" + userId;
+            return "users/edit/" + email;
         }
 
-        userService.updateUser(user, Long.parseLong(userId));
-        return "redirect:/users/" + userId;
+        userService.updateUser(user, email);
+        return "redirect:/users/" + email;
     }
 
-    @RequestMapping(value="/{userId}", method=RequestMethod.DELETE)
-    public String delete(@PathVariable String userId) {
+    @RequestMapping(value="/{email}", method=RequestMethod.DELETE)
+    public String delete(@PathVariable String email) {
         try {
-            userService.deleteUser(Long.parseLong(userId));
+            userService.deleteUser(email);
         } catch (Exception e) {
             return "404page";
         }
